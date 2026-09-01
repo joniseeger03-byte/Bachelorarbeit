@@ -2,7 +2,12 @@ import numpy as np
 import vtk
 import pyvista as pv
 
-from .config import MARKER_COLOR, MARKER_RADIUS
+from .config import (
+    MARKER_COLOR,
+    MARKER_RADIUS_RATIO,
+    MARKER_MIN_RADIUS,
+    MARKER_MAX_RADIUS,
+)
 
 
 class LandmarkManager:
@@ -26,8 +31,9 @@ class LandmarkManager:
         self.remove_marker(slot, label)
 
         local_point = self._world_to_local(world_position, actor)
+        radius = self._proportional_radius(actor)
 
-        sphere = pv.Sphere(radius=MARKER_RADIUS)
+        sphere = pv.Sphere(radius=radius)
         marker_actor = self._plotter.add_mesh(
             sphere,
             color=MARKER_COLOR,
@@ -40,6 +46,25 @@ class LandmarkManager:
             "local_point": local_point,
         }
         self._actor_lookup[marker_actor] = (slot, label)
+
+    @staticmethod
+    def _proportional_radius(actor):
+        """
+        Radius als fester Anteil der Bounding-Box-Diagonale des
+        Zielobjekts, geclampt auf einen sinnvollen Min/Max-Bereich -
+        so passt der Marker unabhängig von der absoluten Größe des
+        Objekts (Scan vs. SMPL vs. Testkörper).
+        """
+        bounds = actor.GetBounds()
+        diagonal = np.linalg.norm([
+            bounds[1] - bounds[0],
+            bounds[3] - bounds[2],
+            bounds[5] - bounds[4],
+        ])
+
+        radius = diagonal * MARKER_RADIUS_RATIO
+        return float(np.clip(radius, MARKER_MIN_RADIUS, MARKER_MAX_RADIUS))
+
 
     def remove_marker(self, slot, label):
         entry = self._markers.pop((slot, label), None)

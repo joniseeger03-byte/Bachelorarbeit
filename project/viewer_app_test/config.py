@@ -85,7 +85,13 @@ LANDMARK_LABELS = [
 # ==========================================================
 
 MARKER_COLOR = "yellow"
-MARKER_RADIUS = 0.2  # ggf. an die Größe deiner Scans anpassen (Meter-Einheit angenommen)
+# Fester Radius ergibt bei unterschiedlich großen Objekten (Scan vs.
+# SMPL vs. Testkörper) unpassende Marker-Größen. Stattdessen wird der
+# Radius beim Setzen relativ zur Bounding-Box-Diagonale des jeweiligen
+# Zielobjekts berechnet (siehe LandmarkManager._proportional_radius).
+MARKER_RADIUS_RATIO = 0.015
+MARKER_MIN_RADIUS = 0.003
+MARKER_MAX_RADIUS = 0.05
 
 # ==========================================================
 # Transparenz (zum Platzieren innenliegender Marker)
