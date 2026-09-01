@@ -19,7 +19,8 @@ class InteractionController:
         self._camera = camera_controller
         self._on_marker_point_picked = on_marker_point_picked
 
-        self._picker = vtk.vtkPropPicker()
+        self._picker = vtk.vtkCellPicker()
+        self._picker.SetTolerance(0.0005)
 
         # vtkCellPicker statt vtkPropPicker für Marker: liefert über
         # GetPickPosition() den exakten 3D-Punkt auf der Mesh-

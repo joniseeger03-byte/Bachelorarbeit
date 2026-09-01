@@ -3,7 +3,7 @@ import signal
 
 from PySide6 import QtWidgets
 
-from viewer_app.main_window import MainWindow
+from viewer_app_test.main_window import MainWindow
 
 
 def handle_sigint(sig, frame):
