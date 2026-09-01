@@ -1,0 +1,6 @@
+.venv/
+__pycache__/
+smpl_models/
+smplx_models/
+scan_models/
+*.pyc

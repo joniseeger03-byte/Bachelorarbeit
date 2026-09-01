@@ -1,0 +1,21 @@
+marker müssen auf größe des models skaliert werden und mitskalieren
+
+bestenfalls anzeige welche objekte im koordinatensystem existieren und welche zu was gehören (welche marker zu welchem slot)
+
+gizmo für kippwinkelaurichtung der körper
+
+option die ebene einzuzeichen (Grid oder so)
+-> Grid muss vor einfügen des ersten objects bestehen setup_grid() , mit eventuellem activete_grid() oder deactivate_grid(),
+Grid sollte an Kameraperspektive haften und die Dimensionierung des Grids je nach abstand, hauptinteresse daran ist den ursprung des koordintansystem szu sehen
+
+position im raum anzeigen in zaheln und winkel
+
+dir marker müssen eignetlich movale sein oder irgendwie die mitte des objekts ermitteln, 
+da ich nicht weiß wo die smpl model ihre marker haben und schätze das die se in der mitte sind. 
+andere idee wäre die opacity des objekts zu reduzieren und die marker reinzuschieben, 
+das der slot theoretisch die grenzen der movable area sind, aber der umstand ist etwas too much. 
+
+Ein gutes UI Design wäre, die Marker noch im Nachhinein ansteuern zu können und deren SDetails im rechten rand, 
+voraussichtlich unterhalb der buttons sehen zu können (Name, Placement, etc.). Eventuell sogar da mit einem button löschbar machen
+
+super wäre es, wenn di edaten alle direkt skaliert in der anzeige erscheinen, ob das geht unsicher
